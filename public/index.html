@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest"><meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sekta.media — iGaming PPC Arbitrage</title>
+  <style>
+    body {
+      font-family: "Courier New", monospace;
+      background: #000;
+      color: #0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 40px 20px;
+      position: relative;
+    }
+    .ascii-logo, .ascii-title {
+      white-space: pre;
+      color: #0f0;
+      overflow-x: auto;
+    }
+    .ascii-logo {
+      font-size: 14px;
+      line-height: 16px;
+      margin-bottom: 20px;
+    }
+    .ascii-title {
+      font-size: 9px;
+      line-height: 10px;
+      margin-bottom: 10px;
+    }
+    .section {
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px dashed #0f0;
+      transition: background-color 0.3s;
+    }
+    .section:hover { background: #003300; }
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .feature {
+      flex: 1;
+      min-width: 200px;
+      padding: 15px;
+      margin: 10px;
+      background: #002200;
+      transition: transform 0.3s;
+    }
+    .feature:hover { transform: scale(1.05); background: #004400; }
+    .form-input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #001100;
+      color: #0f0;
+      border: none;
+      resize: vertical;
+    }
+    .btn {
+      padding: 10px;
+      background: #004400;
+      color: #0f0;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+      margin-right: 10px;
+    }
+    .social-links a {
+      color: #0f0;
+      text-decoration: none;
+    }
+    .lang-switcher {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .lang-switcher span {
+      cursor: pointer;
+      color: #0f0;
+      margin: 0 5px;
+      opacity: 0.6;
+    }
+    .lang-switcher span.active {
+      font-weight: bold;
+      text-decoration: underline;
+      opacity: 1;
+    }
+    /* ---- MOBILE: center logo and headers, make ascii-logo adapt size ---- */
+    @media (max-width: 768px) {
+    .features { flex-direction: column; }
+    .ascii-logo, .ascii-title { 
+      text-align: center;
+    }
+    .ascii-logo { 
+      font-size: 8px;
+      line-height: 10px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 95vw;
+      max-width: 100%;
+    }
+    .ascii-title { 
+      font-size: 7px;
+      line-height: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 95vw;
+      max-width: 100%;
+    }
+  }
+  @media (max-width: 480px) {
+    .ascii-logo { 
+      font-size: 7px;
+      line-height: 8px;
+      width: 95vw;
+      max-width: 100%;
+    }
+    .ascii-title { 
+      font-size: 6px;
+      line-height: 7px;
+      width: 95vw;
+      max-width: 100%;
+    }
+  }
+  .modal-alert-bg {
+    position: fixed;
+    z-index: 10001;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeinbg 0.3s;
+  }
+  .modal-alert-msg {
+    background: #222;
+    color: #0f0;
+    padding: 24px 32px;
+    border-radius: 0; /* острые углы */
+    font-size: 1.1em;
+    box-shadow: 0 2px 32px #000a;
+    text-align: center;
+    max-width: 90vw;
+    animation: fadein 0.3s;
+    border: 1px dashed #0f0; /* как у секций */
+  }
+  @keyframes fadein { from { opacity:0; transform: scale(0.97);} to { opacity:1; transform: scale(1);} }
+  @keyframes fadeinbg { from { opacity:0;} to { opacity:1;}}
+  @keyframes fadeout { from { opacity:1;} to { opacity:0; transform: scale(0.97);} }
+  @keyframes fadeoutbg { from { opacity:1;} to { opacity:0;}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="lang-switcher">
+      <span class="active" data-setlang="ru" onclick="switchLang('ru')">RU</span> |
+      <span data-setlang="en" onclick="switchLang('en')">EN</span>
+    </div>
+
+    <div class="ascii-logo">
+███████╗███████╗██╗  ██╗████████╗ █████╗     ███╗   ███╗███████╗██████╗ ██╗ █████╗ 
+██╔════╝██╔════╝██║ ██╔╝╚══██╔══╝██╔══██╗    ████╗ ████║██╔════╝██╔══██╗██║██╔══██╗
+███████╗█████╗  █████╔╝    ██║   ███████║    ██╔████╔██║█████╗  ██║  ██║██║███████║
+╚════██║██╔══╝  ██╔═██╗    ██║   ██╔══██║    ██║╚██╔╝██║██╔══╝  ██║  ██║██║██╔══██║
+███████║███████╗██║  ██╗   ██║   ██║  ██║    ██║ ╚═╝ ██║███████╗██████╔╝██║██║  ██║
+╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝    ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝╚═╝  ╚═╝
+    </div>
+
+    <!-- ABOUT US -->
+    <div class="section">
+<pre class="ascii-title">
+ █████╗ ██████╗  ██████╗ ██╗   ██╗████████╗    ██╗   ██╗███████╗
+██╔══██╗██╔══██╗██╔═══██╗██║   ██║╚══██╔══╝    ██║   ██║██╔════╝
+███████║██████╔╝██║   ██║██║   ██║   ██║       ██║   ██║███████╗
+██╔══██║██╔══██╗██║   ██║██║   ██║   ██║       ██║   ██║╚════██║
+██║  ██║██████╔╝╚██████╔╝╚██████╔╝   ██║       ╚██████╔╝███████║
+╚═╝  ╚═╝╚═════╝ ╚═════╝   ╚═════╝    ╚═╝        ╚═════╝ ╚══════╝
+</pre>
+<p data-lang="ru">Sekta.media — команда экспертов по арбитражу PPC‑трафика в iGaming. Применяем глубокую аналитику, креатив и ML‑технологии, обеспечивая партнёрам стабильный рост и высокий ROI.</p>
+<p data-lang="en" style="display:none">Sekta.media is a team of PPC-traffic arbitration experts in iGaming. We use analytics, creativity and ML-tech to drive growth and high ROI.</p>
+    </div>
+
+    <!-- ADVANTAGES -->
+    <div class="section">
+<pre class="ascii-title">
+ █████╗ ██████╗ ██╗   ██╗ █████╗ ███╗   ██╗████████╗ █████╗  ██████╗ ███████╗███████╗
+██╔══██╗██╔══██╗██║   ██║██╔══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔════╝ ██╔════╝██╔════╝
+███████║██║  ██╗██║   ██║███████║██╔██╗ ██║   ██║   ███████║██║  ███╗█████╗  ███████╗
+██╔══██║██║  ██╗╚██╗ ██╔╝██╔══██║██║╚██╗██║   ██║   ██╔══██║██║   ██║██╔══╝  ╚════██║
+██║  ██║██████╔╝ ╚████╔╝ ██╔══██║██║ ╚████║   ██║   ██║  ██║╚██████╔╝███████╗███████║
+╚═╝  ╚═╝╚═════╝   ╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚══════╝
+</pre>
+<div class="features">
+  <div class="feature" data-lang="ru">Глубокий анализ и Realtime-оптимизация</div>
+  <div class="feature" data-lang="en" style="display:none">Deep analytics & realtime optimisation</div>
+  <div class="feature" data-lang="ru">Персональные медиапланы под KPI</div>
+  <div class="feature" data-lang="en" style="display:none">Bespoke media plans for KPIs</div>
+  <div class="feature" data-lang="ru">Снижение CPA до 30% благодаря ML-bidder</div>
+  <div class="feature" data-lang="en" style="display:none">Up to 30% CPA drop via ML bidder</div>
+  <div class="feature" data-lang="ru">Live-дашборд и прозрачная отчётность</div>
+  <div class="feature" data-lang="en" style="display:none">Live dashboard & transparent reporting</div>
+  <div class="feature" data-lang="ru">Экспертиза search, social, programmatic</div>
+  <div class="feature" data-lang="en" style="display:none">Cross-channel expertise</div>
+  <div class="feature" data-lang="ru">Поддержка 24/7 без чат-ботов</div>
+  <div class="feature" data-lang="en" style="display:none">24/7 human support</div>
+</div>
+    </div>
+
+    <!-- CAREERS -->
+    <div class="section">
+<pre class="ascii-title">
+ ██████╗ █████╗ ██████╗ ███████╗███████╗██████╗ ███████╗
+██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝██╔══██╗██╔════╝
+██│     ███████║██████╔╝█████╗  █████╗  ██████╔╝███████╗
+██│     ██╔══██║██╔══██╗██╔══╝  ██╔══╝  ██╔══██╗╚════██║
+╚██████╗██║  ██║██║  ██║███████╗███████╗██║  ██║███████║
+ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚══════╝
+</pre>
+<p data-lang="ru">Ищем медиабаеров с опытом от 3 лет. Топ-бюджеты, ML-платформа, безлимит на креативы. Работаем без воды и с KPI.</p>
+<p data-lang="en" style="display:none">We’re hiring senior media buyers (3+ years). Top budgets, ML platform, creative freedom and focus on results.</p>
+<a class="btn" href="https://t.me/SektaHR" target="_blank" data-lang="ru">Связаться с HR</a>
+<a class="btn" href="https://t.me/SektaHR" target="_blank" data-lang="en" style="display:none">Chat with HR</a>
+    </div>
+
+    <!-- CONTACT US -->
+    <div class="section">
+<pre class="ascii-title">
+ ██████╗ ██████╗ ███╗   ██╗████████╗  █████╗  ██████╗████████╗    ██╗   ██╗███████╗
+██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝ ██╔══██╗██╔════╝╚══██╔══╝    ██║   ██║██╔════╝
+██║     ██║   ██║██╔██╗ ██║   ██║    ███████║██║        ██║       ██║   ██║███████╗
+██║     ██║   ██║██║╚██╗██║   ██║    ██╔══██║██║        ██║       ██║   ██║╚════██║
+╚██████╗╚██████╔╝██║ ╚████║   ██║    ██║  ██║╚██████╗   ██║       ╚██████╔╝███████║
+ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝    ╚═╝  ╚═╝ ╚═════╝   ╚═╝        ╚═════╝ ╚══════╝
+</pre>
+<form id="contactForm">
+  <input type="text" placeholder="Имя" class="form-input" data-lang="ru" required name="name_ru">
+  <input type="text" placeholder="Name" class="form-input" data-lang="en" style="display:none" required name="name_en">
+  <input type="email" placeholder="Email" class="form-input" required name="email">
+  <input type="text" placeholder="Telegram" class="form-input" name="telegram">
+  <textarea placeholder="Сообщение" data-lang="ru" required name="msg_ru"></textarea>
+  <textarea placeholder="Message" data-lang="en" style="display:none" required name="msg_en"></textarea>
+  <button type="submit" class="btn" data-lang="ru">Отправить</button>
+  <button type="submit" class="btn" data-lang="en" style="display:none">Send</button>
+</form>
+
+    </div>
+
+    <!-- Контакты / Contacts -->
+    <div class="section social-links">
+      <p data-lang="ru">Email: <a href="mailto:contact@sekta.media">contact@sekta.media</a></p>
+      <p data-lang="en" style="display:none">Email: <a href="mailto:contact@sekta.media">contact@sekta.media</a></p>
+      <p data-lang="ru">Telegram: <a href="https://t.me/SektaMedia">@SektaMedia</a></p>
+      <p data-lang="en" style="display:none">Telegram: <a href="https://t.me/SektaMedia">@SektaMedia</a></p>
+    </div>
+  </div>
+
+  <script>
+    function switchLang(lang) {
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        if (el.getAttribute('data-lang') === lang) {
+          el.style.display = 'block';
+          el.setAttribute('required', 'required');
+        } else {
+          el.style.display = 'none';
+          el.removeAttribute('required');
+        }
+      });
+      document.querySelectorAll('[data-setlang]').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('data-setlang') === lang);
+      });
+    }
+    // По умолчанию русский
+    switchLang('ru');
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const isRu = document.querySelector('[data-lang=\"ru\"]').style.display === 'block';
+    const lang = isRu ? 'ru' : 'en';
+
+    const name = isRu
+      ? document.querySelector('input[name=\"name_ru\"]').value
+      : document.querySelector('input[name=\"name_en\"]').value;
+    const email = document.querySelector('input[name=\"email\"]').value;
+    const telegram = document.querySelector('input[name=\"telegram\"]').value;
+    const message = isRu
+      ? document.querySelector('textarea[name=\"msg_ru\"]').value
+      : document.querySelector('textarea[name=\"msg_en\"]').value;
+
+    const data = { name, email, telegram, message };
+
+    try {
+      const res = await fetch('/send-message', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        showModalAlert({
+          ru: 'Спасибо, ваша заявка отправлена!',
+          en: 'Thank you, your request has been sent!'
+        }, lang);
+        document.getElementById('contactForm').reset();
+      } else {
+        showModalAlert({
+          ru: 'Ошибка при отправке! Попробуйте позже.',
+          en: 'Error sending! Try again later.'
+        }, lang);
+      }
+    } catch {
+      showModalAlert({
+        ru: 'Ошибка соединения! Проверьте интернет.',
+        en: 'Connection error! Please check your internet.'
+      }, lang);
+    }
+  });
+
+  function showModalAlert(messages, lang = 'ru') {
+      // messages: { ru: '...', en: '...' }, lang: 'ru' or 'en'
+      if(document.getElementById('modal-alert-bg')) return; // Не показывать если уже есть
+    
+      const bg = document.createElement('div');
+      bg.className = 'modal-alert-bg';
+      bg.id = 'modal-alert-bg';
+    
+      const box = document.createElement('div');
+      box.className = 'modal-alert-msg';
+      box.textContent = messages[lang] || messages['ru'] || '';
+    
+      bg.appendChild(box);
+      document.body.appendChild(bg);
+    
+      setTimeout(() => {
+        box.style.animation = 'fadeout 0.5s forwards';
+        bg.style.animation = 'fadeoutbg 0.5s forwards';
+        setTimeout(() => {
+          bg.remove();
+        }, 500);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
